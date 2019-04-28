@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 
 namespace two_way_list
 {
-    public class List<Type>
+    public class My_list<Type>
     {
-        public Element Head { get; private set; }
-        public Element Last { get; private set; }
-        public Element Iteratorforward;
-        public Element Iteratorbackward;
+        public Element<Type> Head { get; private set; }
+        public Element<Type> Last { get; private set; }
+        public Element<Type> Iteratorforward;
+        public Element<Type> Iteratorbackward;
 
         public int ItemCounter { get; private set; }
-        public List() { Head =Last= null; }
-        public class Element
+        public My_list() { Head =Last= null; }
+        public class Element<Type>
         {
-            public Element next, prev;
+            public Element<Type> next, prev;
             public Type data { get; set; }
 
-            public static Element operator ++(Element actual)
+            public static Element<Type> operator ++(Element<Type> actual)
             {
                 return actual.next;
             }
-            public static Element operator --(Element actual)
+            public static Element<Type> operator --(Element<Type> actual)
             {
                 return actual.prev;
             }
@@ -37,7 +37,7 @@ namespace two_way_list
         }
         public void InsertFront(Type data)
         {
-            Element newNode = new Element(data);
+            Element<Type> newNode = new Element<Type>(data);
             if (Head == null)
             {
                 Head = newNode;
@@ -51,7 +51,7 @@ namespace two_way_list
             }
             if (Head != null)
             {
-                Element first_node = Head;
+                Element<Type> first_node = Head;
                 Head = newNode;
                 Head.next = first_node;
                 first_node.prev = Head;
@@ -59,14 +59,14 @@ namespace two_way_list
 
             ItemCounter++;
         }
-        public void InsertAfter(Element actual, Type data)
+        public void InsertAfter(Element<Type> actual, Type data)
         {
             if (actual == null)
             {
                 Console.WriteLine("Podełeś nieziainicjalizowany element");
                 return;
             }
-            Element newNode = new Element(data);
+            Element<Type> newNode = new Element<Type>(data);
             newNode.next = actual.next;
             actual.next = newNode;
             newNode.prev = actual;
@@ -80,7 +80,7 @@ namespace two_way_list
         public void InsertLast( Type data)
         {
             ItemCounter++;
-            Element newNode = new Element(data);
+            Element<Type> newNode = new Element<Type>(data);
             if (Head == null)
             {
                 newNode.prev = null;
@@ -88,14 +88,14 @@ namespace two_way_list
                 Last = newNode;
                 return;
             }
-            Element lastNode =Last;
+            Element<Type> lastNode =Last;
             lastNode.next = newNode;
             newNode.prev = lastNode;
             Last = newNode;
         }
         public void DeleteNodebyKey( Type key)
         {
-            Element actual = Head;
+            Element<Type> actual = Head;
             if (actual != null && actual.data.Equals(key))
             {
                 Head = actual.next;
@@ -133,7 +133,7 @@ namespace two_way_list
 
             ItemCounter--;
         }
-        public void DeleteThisNode(Element actual)
+        public void DeleteThisNode(Element<Type> actual)
         {
             if (actual == null)
                 return;
